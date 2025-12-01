@@ -39,11 +39,11 @@ void sort_single_group(Word arr[], int n) {
             if (arr[j].freq < arr[j+1].freq)
                 swap = 1;
             else if (arr[j].freq == arr[j+1].freq &&
-                     arr[j].length < arr[j+1].length)
+                    arr[j].length < arr[j+1].length)
                 swap = 1;
             else if (arr[j].freq == arr[j+1].freq &&
-                     arr[j].length == arr[j+1].length &&
-                     strcmp(arr[j].word, arr[j+1].word) < 0)
+                    arr[j].length == arr[j+1].length &&
+                    strcmp(arr[j].word, arr[j+1].word) < 0)
                 swap = 1;
 
             if (swap) {
