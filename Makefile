@@ -1,16 +1,20 @@
-all: program
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
 
-program: main.o textutil.o datastore.o
-	gcc main.o textutil.o datastore.o -o program
+OBJS = main.o process.o io.o
 
-main.o: main.c textutil.h datastore.h
-	gcc -c main.c
+program: $(OBJS)
+	$(CC) $(CFLAGS) -o program $(OBJS)
 
-textutil.o: textutil.c textutil.h
-	gcc -c textutil.c
+main.o: main.c process.h io.h
+	$(CC) $(CFLAGS) -c main.c
 
-datastore.o: datastore.c datastore.h
-	gcc -c datastore.c
+process.o: process.c process.h
+	$(CC) $(CFLAGS) -c process.c
+
+io.o: io.c io.h process.h
+	$(CC) $(CFLAGS) -c io.c
 
 clean:
-	rm -f *.o program
+	del *.o 2>nul || true
+	del program.exe 2>nul || true
