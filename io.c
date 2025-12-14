@@ -1,5 +1,24 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "io.h"
+
+void loadFromBinary(const char *filename, WordData *wd) {
+    FILE *f = fopen(filename, "rb");
+    if (!f) {
+        printf("File binari belum ada.\n");
+        return;
+    }
+
+    fread(&wd->count, sizeof(int), 1, f);
+
+    wd->capacity = wd->count;
+    wd->words = malloc(sizeof(WordFreq) * wd->capacity);
+
+    fread(wd->words, sizeof(WordFreq), wd->count, f);
+
+    fclose(f);
+}
+
 
 void saveToBinary(const char *filename, WordData *wd) {
     FILE *f = fopen(filename, "wb");

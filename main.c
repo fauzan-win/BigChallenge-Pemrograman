@@ -32,8 +32,11 @@ int main() {
             int n;
             printf("Masukkan n (1-100): ");
             scanf("%d", &n);
+
+            loadFromBinary("output.bin", &wd);
             displayTopN(&wd, n);
         }
+
         else if (choice == 3) {
             break;
         }

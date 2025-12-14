@@ -18,3 +18,4 @@ io.o: io.c io.h process.h
 clean:
 	del *.o 2>nul || true
 	del program.exe 2>nul || true
+	

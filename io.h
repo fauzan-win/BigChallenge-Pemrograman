@@ -5,5 +5,7 @@
 
 void saveToBinary(const char *filename, WordData *wd);
 void displayTopN(WordData *wd, int n);
+void loadFromBinary(const char *filename, WordData *wd);
+
 
 #endif

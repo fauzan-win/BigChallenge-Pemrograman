@@ -81,8 +81,22 @@ void loadAndProcessText(const char *filename, WordData *wd) {
 }
 
 int cmpWords(const void *a, const void *b) {
-    return strcmp(((WordFreq*)a)->word, ((WordFreq*)b)->word);
+    const WordFreq *w1 = a;
+    const WordFreq *w2 = b;
+
+
+    if (w1->count != w2->count)
+        return w2->count - w1->count;
+
+
+    int len1 = strlen(w1->word);
+    int len2 = strlen(w2->word);
+    if (len1 != len2)
+        return len2 - len1;
+
+    return strcmp(w1->word, w2->word);
 }
+
 
 void sortWords(WordData *wd) {
     qsort(wd->words, wd->count, sizeof(WordFreq), cmpWords);
