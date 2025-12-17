@@ -1,49 +1,41 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include "process.h"
-#include "io.h"
+#include "word.h"
+
+void read_text_file(const char *filename);
+void save_binary(const char *fname);
+void display_from_binary(const char *fname, int n);
 
 int main() {
-    WordData wd;
-    initWordData(&wd);
+    char input[256];
+    char binfile[] = "output.bin";
+    int choice, n;
 
-    char filename[200];
-    printf("Masukkan nama file input (.txt): ");
-    scanf("%s", filename);
+    init_groups();
 
-    loadAndProcessText(filename, &wd);
-    sortWords(&wd);
+    printf("Masukkan nama file input (txt): ");
+    scanf("%255s", input);
+    read_text_file(input);
 
-    int choice;
-
-    while (1) {
-        printf("\n========== MENU ==========\n");
-        printf("1) Simpan ke file biner\n");
-        printf("2) Tampilkan N kata teratas\n");
-        printf("3) Keluar\n");
+    do {
+        printf("\nMenu:\n");
+        printf("1) Simpan ke file binari\n");
+        printf("2) Tampilkan n kata\n");
+        printf("3) Selesai\n");
         printf("Pilihan anda: ");
         scanf("%d", &choice);
 
         if (choice == 1) {
-            saveToBinary("output.bin", &wd);
-            printf("Disimpan ke output.bin\n");
+            save_binary(binfile);
+        } else if (choice == 2) {
+            if (!binary_saved) save_binary(binfile);
+            do {
+                printf("Masukkan n (1-25): ");
+                scanf("%d", &n);
+            } while (n <= 0 || n > 25);
+            display_from_binary(binfile, n);
         }
-        else if (choice == 2) {
-            int n;
-            printf("Masukkan n (1-100): ");
-            scanf("%d", &n);
+    } while (choice != 3);
 
-            loadFromBinary("output.bin", &wd);
-            displayTopN(&wd, n);
-        }
-
-        else if (choice == 3) {
-            break;
-        }
-        else {
-            printf("Pilihan tidak valid!\n");
-        }
-    }
-
+    printf("Program selesai.\n");
     return 0;
 }

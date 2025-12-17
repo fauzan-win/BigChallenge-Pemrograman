@@ -1,21 +1,20 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c11
 
-OBJS = main.o process.o io.o
+TARGET = bigchallenge
+SRCS = main.c reader.c sort_binary.c
+OBJS = $(SRCS:.c=.o)
 
-program: $(OBJS)
-	$(CC) $(CFLAGS) -o program $(OBJS)
+all: $(TARGET)
 
-main.o: main.c process.h io.h
-	$(CC) $(CFLAGS) -c main.c
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
-process.o: process.c process.h
-	$(CC) $(CFLAGS) -c process.c
-
-io.o: io.c io.h process.h
-	$(CC) $(CFLAGS) -c io.c
+%.o: %.c word.h
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-	del *.o 2>nul || true
-	del program.exe 2>nul || true
-	
+	rm -f $(OBJS) $(TARGET)
+
+run: $(TARGET)
+	./$(TARGET)
