@@ -8,8 +8,8 @@ void sort_words(LetterGroup *g) {
             Word *a = &g->words[i];
             Word *b = &g->words[j];
             if (a->freq < b->freq ||
-               (a->freq == b->freq && a->length < b->length) ||
-               (a->freq == b->freq && a->length == b->length && strcmp(a->word, b->word) < 0)) {
+            (a->freq == b->freq && a->length < b->length) ||
+            (a->freq == b->freq && a->length == b->length && strcmp(a->word, b->word) < 0)) {
                 Word tmp = *a;
                 *a = *b;
                 *b = tmp;
